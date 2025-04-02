@@ -12,13 +12,14 @@
 class Shader
 {
     public:
-        Shader(const char* vsFile, const char* fsFile);
+        Shader();
+        void load(const char* vsFile, const char* fsFile);
         void use(void);
 
     private:
-        int id = glCreateProgram();
-        int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-        int fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+        int id = -1;
+        int vertexShaderID = -1;
+        int fragmentShaderID = -1;
     
         bool loadVertexShader(const char* vsFile);
         bool loadFragmentShader(const char* fsFile);

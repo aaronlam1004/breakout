@@ -2,15 +2,15 @@
 
 #include <glad/glad.h>
 #include <Shader.hpp>
-#include <Constants.hpp>
 
 class Entity
 {
     public:
-        Entity(Shader& entityShader,
-               const float vertices[], const unsigned int numVertices,
-               const VertexAttributes attributes[], const unsigned int numAttributes);
+        Entity();
         void show(void);
+        void load(Shader& entityShader,
+                  const float vertices[], const unsigned int numVertices,
+                  const int attributeCounts[], const unsigned int numAttributes);
 
     private:
         unsigned int vboID;
@@ -19,5 +19,5 @@ class Entity
         Shader* shader;
 
         void loadVertices(const float vertices[], const unsigned int numVertices);
-        void loadAttributes(const VertexAttributes attributes[], const unsigned int numAttributes);
+        void loadAttributes(const int attributeCounts[], const unsigned int numAttributes);
 };

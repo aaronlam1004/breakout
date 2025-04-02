@@ -11,7 +11,8 @@ const float TRIANGLE_VERTICES[] = {
      0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f
 };
 
-const VertexAttributes TRIANGLE_ATTRS[] = {
-    { 0, 3, 6 * sizeof(float), 0 }, // aPos
-    { 1, 3, 6 * sizeof(float), 3 * sizeof(float) } // aColor
+const int TRIANGLE_ATTR_COUNT[] = {
+    3, 3
+    // { 0, 3, 6 * sizeof(float), 0 }, // aPos
+    // { 1, 3, 6 * sizeof(float), 3 * sizeof(float) } // aColor
 };

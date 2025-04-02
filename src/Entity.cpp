@@ -2,18 +2,21 @@
 
 #include <iostream>
 
-Entity::Entity(Shader& entityShader,
-               const float vertices[], const unsigned int numVertices,
-               const VertexAttributes attributes[], const unsigned int numAttributes)
+Entity::Entity()
 {
-    shader = &entityShader;
-    
+}
+
+void Entity::load(Shader& entityShader,
+                  const float vertices[], const unsigned int numVertices,
+                  const int attributeCounts[], const unsigned int numAttributes)
+{
     glGenBuffers(1, &vboID); // Vertex buffer
     glGenVertexArrays(1, &vaoID); // Vertex attributes buffer
     glGenBuffers(1, &eboID); // Element buffer
-
+    
+    shader = &entityShader;
     loadVertices(vertices, numVertices);
-    loadAttributes(attributes, numAttributes);
+    loadAttributes(attributeCounts, numAttributes);
 }
 
 void Entity::loadVertices(const float vertices[], const unsigned int numVertices)
@@ -22,18 +25,25 @@ void Entity::loadVertices(const float vertices[], const unsigned int numVertices
     glBufferData(GL_ARRAY_BUFFER, numVertices, vertices, GL_STATIC_DRAW);
 }
 
-void Entity::loadAttributes(const VertexAttributes attributes[], const unsigned int numAttributes)
+void Entity::loadAttributes(const int attributeCounts[], const unsigned int numAttributes)
 {
     glBindVertexArray(vaoID);
+    int totalSize = 0;
     for (int i = 0; i < numAttributes; ++i)
     {
-        VertexAttributes currAttribute = attributes[i];
-        glVertexAttribPointer(currAttribute.id, currAttribute.count,
+        totalSize += attributeCounts[i] * sizeof(float);
+    }
+
+    int start = 0;
+    for (int i = 0; i < numAttributes; ++i)
+    {
+        start += sizeof(float) * i * attributeCounts[i];
+        glVertexAttribPointer(i, attributeCounts[i],
                               GL_FLOAT,
                               GL_FALSE,
-                              currAttribute.totalSize,
-                              (void*) currAttribute.startIndex);
-        glEnableVertexAttribArray(currAttribute.id);
+                              totalSize,
+                              (void*) start);
+        glEnableVertexAttribArray(i);
     }
 }
 

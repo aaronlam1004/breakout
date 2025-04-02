@@ -2,9 +2,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <Entities.hpp>
+#include <Triangle.hpp>
 #include <Shader.hpp>
-#include <Entity.hpp>
+#include <ResourceLib.hpp>
 
 const int WIDTH = 800;
 const int HEIGHT = 800;
@@ -37,8 +37,9 @@ int main(int argc, char* argv[])
 
     // Event handlers
 
-    Shader triangleShader("triangle.vs", "triangle.fs");
-    Entity triangle(triangleShader, TRIANGLE_VERTICES, sizeof(TRIANGLE_VERTICES), TRIANGLE_ATTRS, 2);
+    // Entities and shaders
+    loadShaders();
+    loadEntities();
 
     // Loop
     while (!glfwWindowShouldClose(window))

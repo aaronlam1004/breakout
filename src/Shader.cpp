@@ -1,15 +1,30 @@
 #include <Shader.hpp>
 
-Shader::Shader(const char* vsFile, const char* fsFile)
+Shader::Shader()
 {
-    assert(loadVertexShader(vsFile));
-    assert(loadFragmentShader(fsFile));
-    glLinkProgram(id);
 }
 
 void Shader::use(void)
 {
-    glUseProgram(id);
+    if (id != -1)
+    {
+        glUseProgram(id);
+    }
+    else
+    {
+        // TODO: need to log here
+    }
+}
+
+void Shader::load(const char* vsFile, const char* fsFile)
+{
+    id = glCreateProgram();
+    vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+    fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+    
+    assert(loadVertexShader(vsFile));
+    assert(loadFragmentShader(fsFile));
+    glLinkProgram(id);
 }
 
 bool Shader::loadVertexShader(const char* vsFile)
