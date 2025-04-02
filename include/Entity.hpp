@@ -1,7 +1,9 @@
 #pragma once
 
+#include <cassert>
 #include <glad/glad.h>
 #include <Shader.hpp>
+#include <Constants.hpp>
 
 class Entity
 {
@@ -9,15 +11,17 @@ class Entity
         Entity();
         void show(void);
         void load(Shader& entityShader,
-                  const float vertices[], const unsigned int numVertices,
-                  const int attributeCounts[], const unsigned int numAttributes);
+                  const float vertices[], const unsigned int sizeOfVertices,
+                  const VertexAttributes attributes);
 
-    private:
-        unsigned int vboID;
-        unsigned int vaoID;
-        unsigned int eboID;
-        Shader* shader;
+    protected:
+        unsigned int vboID = -1;
+        unsigned int vaoID = -1;
+        unsigned int eboID = -1;
+        Shader* shader = nullptr;
 
-        void loadVertices(const float vertices[], const unsigned int numVertices);
-        void loadAttributes(const int attributeCounts[], const unsigned int numAttributes);
+        unsigned int numOfTriangles = 0;
+
+        void loadVertices(const float vertices[], const unsigned int sizeOfVertices);
+        void loadAttributes(const VertexAttributes attributes);
 };

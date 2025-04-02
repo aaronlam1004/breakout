@@ -47,6 +47,7 @@ int main(int argc, char* argv[])
         glClear(GL_COLOR_BUFFER_BIT);
         
         triangle.show();
+        sprite.show();
         
         glfwSwapBuffers(window);
         glfwPollEvents();

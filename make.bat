@@ -5,6 +5,7 @@ set SOURCES=../main.cpp
 set SOURCES=%SOURCES% ../glad/glad.c
 set SOURCES=%SOURCES% ../src/Shader.cpp
 set SOURCES=%SOURCES% ../src/Entity.cpp
+set SOURCES=%SOURCES% ../src/Sprite.cpp
 
 rem LIBS
 set LIBS=opengl32.lib ../GLFW/lib/glfw3dll.lib

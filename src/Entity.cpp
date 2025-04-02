@@ -7,41 +7,39 @@ Entity::Entity()
 }
 
 void Entity::load(Shader& entityShader,
-                  const float vertices[], const unsigned int numVertices,
-                  const int attributeCounts[], const unsigned int numAttributes)
+                  const float vertices[], const unsigned int sizeOfVertices,
+                  const VertexAttributes attributes)
 {
     glGenBuffers(1, &vboID); // Vertex buffer
     glGenVertexArrays(1, &vaoID); // Vertex attributes buffer
     glGenBuffers(1, &eboID); // Element buffer
+
+    assert(sizeOfVertices > 0);
     
     shader = &entityShader;
-    loadVertices(vertices, numVertices);
-    loadAttributes(attributeCounts, numAttributes);
+    loadVertices(vertices, sizeOfVertices);
+    loadAttributes(attributes);
+
+    numOfTriangles = (sizeOfVertices / sizeof(float)) / attributes.totalCount;
 }
 
-void Entity::loadVertices(const float vertices[], const unsigned int numVertices)
+void Entity::loadVertices(const float vertices[], const unsigned int sizeOfVertices)
 {
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, numVertices, vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeOfVertices, vertices, GL_STATIC_DRAW);
 }
 
-void Entity::loadAttributes(const int attributeCounts[], const unsigned int numAttributes)
+void Entity::loadAttributes(const VertexAttributes attributes)
 {
     glBindVertexArray(vaoID);
-    int totalSize = 0;
-    for (int i = 0; i < numAttributes; ++i)
-    {
-        totalSize += attributeCounts[i] * sizeof(float);
-    }
-
     int start = 0;
-    for (int i = 0; i < numAttributes; ++i)
+    for (int i = 0; i < attributes.numAttributes; ++i)
     {
-        start += sizeof(float) * i * attributeCounts[i];
-        glVertexAttribPointer(i, attributeCounts[i],
+        start += i * attributes.slices[i] * sizeof(float);
+        glVertexAttribPointer(i, attributes.slices[i],
                               GL_FLOAT,
                               GL_FALSE,
-                              totalSize,
+                              attributes.totalCount * sizeof(float),
                               (void*) start);
         glEnableVertexAttribArray(i);
     }
@@ -50,8 +48,15 @@ void Entity::loadAttributes(const int attributeCounts[], const unsigned int numA
 
 void Entity::show(void)
 {
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBindVertexArray(vaoID);
-    shader->use();
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    if (vboID != -1 && vaoID != -1 && shader != nullptr)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, vboID);
+        glBindVertexArray(vaoID);
+        shader->use();
+        glDrawArrays(GL_TRIANGLES, 0, numOfTriangles);
+    }
+    else
+    {
+        // TODO: log error here
+    }
 }
