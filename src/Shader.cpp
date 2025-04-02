@@ -12,7 +12,7 @@ void Shader::use(void)
     }
     else
     {
-        // TODO: need to log here
+        LOG_WARNING("No shader loaded, nothing will show\n");
     }
 }
 
@@ -21,10 +21,13 @@ void Shader::load(const char* vsFile, const char* fsFile)
     id = glCreateProgram();
     vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-    
-    assert(loadVertexShader(vsFile));
-    assert(loadFragmentShader(fsFile));
-    glLinkProgram(id);
+
+    bool compiled = loadVertexShader(vsFile);
+    compiled &= loadFragmentShader(fsFile);
+    if (compiled)
+    {
+        glLinkProgram(id);
+    }
 }
 
 bool Shader::loadVertexShader(const char* vsFile)
@@ -42,7 +45,12 @@ bool Shader::loadVertexShader(const char* vsFile)
     bool compiled = checkShaderCompiled(vertexShaderID);
     if (compiled)
     {
+        LOG_INFO("Vertex shader (%s) compiled successfully\n", vsFile); 
         glAttachShader(id, vertexShaderID);
+    }
+    else
+    {
+        LOG_ERROR("Vertex shader (%s) failed to compile\n", vsFile);
     }
     glDeleteShader(vertexShaderID);
     return compiled;
@@ -63,7 +71,12 @@ bool Shader::loadFragmentShader(const char* fsFile)
     bool compiled = checkShaderCompiled(fragmentShaderID);
     if (compiled)
     {
+        LOG_INFO("Fragment shader (%s) compiled successfully\n", fsFile); 
         glAttachShader(id, fragmentShaderID);
+    }
+    else
+    {
+        LOG_ERROR("Vertex shader (%s) failed to compile\n", fsFile);
     }
     glDeleteShader(fragmentShaderID);
     return compiled;
@@ -73,6 +86,5 @@ bool Shader::checkShaderCompiled(int shaderID)
 {
     int status;
     glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &status);
-    std::cout << status << std::endl;
     return status != 0;
 }

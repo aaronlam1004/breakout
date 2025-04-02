@@ -3,6 +3,7 @@
 rem SOURCES
 set SOURCES=../main.cpp
 set SOURCES=%SOURCES% ../glad/glad.c
+set SOURCES=%SOURCES% ../src/Logger.cpp
 set SOURCES=%SOURCES% ../src/Shader.cpp
 set SOURCES=%SOURCES% ../src/Entity.cpp
 set SOURCES=%SOURCES% ../src/Sprite.cpp

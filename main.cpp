@@ -2,9 +2,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <Logger.hpp>
 #include <Triangle.hpp>
 #include <Shader.hpp>
 #include <ResourceLib.hpp>
+
+Logger logger;
 
 const int WIDTH = 800;
 const int HEIGHT = 800;

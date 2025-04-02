@@ -1,7 +1,5 @@
 #include <Entity.hpp>
 
-#include <iostream>
-
 Entity::Entity()
 {
 }

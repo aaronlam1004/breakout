@@ -14,8 +14,8 @@ Entity triangle;
 
 void loadShaders(void)
 {
-    triangleShader.load("triangle.vs", "triangle.fs");
-    spriteShader.load("sprite.vs", "sprite.fs");
+    triangleShader.load("shaders/triangle.vs", "shaders/triangle.fs");
+    spriteShader.load("shaders/sprite.vs", "shaders/sprite.fs");
 }
 
 

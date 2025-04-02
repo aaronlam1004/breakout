@@ -9,6 +9,8 @@
 // #include <glm/glm.hpp>
 // #include <glm/gtc/type_ptr.hpp>
 
+#include <Logger.hpp>
+
 class Shader
 {
     public:
