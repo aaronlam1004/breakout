@@ -23,5 +23,5 @@ void loadEntities(void)
 {
     triangle.load(triangleShader, TRIANGLE_VERTICES, sizeof(TRIANGLE_VERTICES),
                   TRIANGLE_ATTRIBUTES);
-    // sprite.loadSprite(spriteShader);
+    sprite.loadSprite(spriteShader);
 }
