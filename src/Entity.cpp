@@ -6,19 +6,38 @@ Entity::Entity()
 
 void Entity::load(Shader& entityShader,
                   const float vertices[], const unsigned int sizeOfVertices,
-                  const VertexAttributes attributes)
+                   const VertexAttributes attributes)
 {
-    glGenBuffers(1, &vboID); // Vertex buffer
-    glGenVertexArrays(1, &vaoID); // Vertex attributes buffer
-    glGenBuffers(1, &eboID); // Element buffer
-
     assert(sizeOfVertices > 0);
-    
+
+    initBuffers();
     shader = &entityShader;
     loadVertices(vertices, sizeOfVertices);
     loadAttributes(attributes);
-
     numOfTriangles = (sizeOfVertices / sizeof(float)) / attributes.totalCount;
+}
+
+void Entity::initBuffers(void)
+{
+    // Vertex buffer
+    if (vboID == -1)
+    {
+        glGenBuffers(1, &vboID);
+    }
+
+    // Vertex attributes buffer
+    if (vaoID == -1)
+    {
+        glGenVertexArrays(1, &vaoID);
+    }
+
+    /* Ignore for now until we need it
+    // Element buffer
+    if (eboID == -1)
+    {
+        glGenBuffers(1, &eboID);
+    }
+    */
 }
 
 void Entity::loadVertices(const float vertices[], const unsigned int sizeOfVertices)
@@ -55,6 +74,6 @@ void Entity::show(void)
     }
     else
     {
-        // TODO: log error here
+        LOG_WARNING("Buffers or shaders not initialized, nothing will show\n");
     }
 }

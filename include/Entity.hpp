@@ -2,6 +2,8 @@
 
 #include <cassert>
 #include <glad/glad.h>
+
+#include <Logger.hpp>
 #include <Shader.hpp>
 #include <Constants.hpp>
 
@@ -22,6 +24,7 @@ class Entity
 
         unsigned int numOfTriangles = 0;
 
+        void initBuffers(void);
         void loadVertices(const float vertices[], const unsigned int sizeOfVertices);
         void loadAttributes(const VertexAttributes attributes);
 };
