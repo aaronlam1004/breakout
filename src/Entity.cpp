@@ -6,7 +6,7 @@ Entity::Entity()
 
 void Entity::load(Shader& entityShader,
                   const float vertices[], const unsigned int sizeOfVertices,
-                   const VertexAttributes attributes)
+                  const VertexAttributes attributes)
 {
     assert(sizeOfVertices > 0);
 
