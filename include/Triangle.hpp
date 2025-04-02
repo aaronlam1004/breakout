@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Constants.hpp>
 #include <Entity.hpp>
 #include <Shader.hpp>
 
@@ -13,6 +12,4 @@ const float TRIANGLE_VERTICES[] = {
 
 const int TRIANGLE_ATTR_COUNT[] = {
     3, 3
-    // { 0, 3, 6 * sizeof(float), 0 }, // aPos
-    // { 1, 3, 6 * sizeof(float), 3 * sizeof(float) } // aColor
 };
