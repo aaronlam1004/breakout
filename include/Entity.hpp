@@ -45,11 +45,18 @@ class Entity
         virtual void draw(void);
         virtual void update(void) {}
 
+        // TODO: make getters/setters
+        Pos pos {0.0f, 0.0f};
+        Size size {50.0f, 50.0f};
+        Velocity vel {0.0f, 0.0f};
+
     protected:
         Shader shader;
         Mesh mesh;
 
+        /*
         Pos pos {0.0f, 0.0f};
         Size size {50.0f, 50.0f};
         Velocity vel {0.0f, 0.0f};
+        */
 };

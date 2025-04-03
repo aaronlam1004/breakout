@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <Level.hpp>
 #include <Logger.hpp>
 #include <Shader.hpp>
 #include <ResourceLib.hpp>
@@ -13,6 +14,10 @@ const int HEIGHT = 800;
 
 int main(int argc, char* argv[])
 {
+    LevelRenderer levelRenderer;
+    Level level;
+    level.readLevel("levels/level1.txt");
+
     // GLFW window
     if (!glfwInit())
     {
@@ -41,12 +46,14 @@ int main(int argc, char* argv[])
 
     // Entities
     loadEntities();
+    levelRenderer.load(level);
 
     // Loop
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
-        
+
+        levelRenderer.draw();
         sprite.draw();
         sprite.update();
         

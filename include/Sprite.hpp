@@ -36,6 +36,7 @@ class Sprite: public Entity
 {
     public:
         Sprite();
-        void loadSprite(const char* spriteTextureFile, bool textureFlipped = false);
-        void update(void) override;
+        void loadSprite(const char* spriteTextureFile, bool textureFlipped = false, bool textureHasAlpha = true);
+        virtual void draw(void) override;
+        virtual void update(void) override;
 };

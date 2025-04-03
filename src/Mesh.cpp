@@ -14,7 +14,7 @@ void Mesh::load(const float vertices[], const unsigned int sizeOfVertices, const
     numOfTriangles = (sizeOfVertices / sizeof(float)) / attributes.totalCount;
 }
 
-void Mesh::loadTexture(const char* textureFile, bool flipped)
+void Mesh::loadTexture(const char* textureFile, bool flipped, bool hasAlpha)
 {
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
@@ -31,7 +31,13 @@ void Mesh::loadTexture(const char* textureFile, bool flipped)
     if (imageData)
     {
         LOG_INFO("Texture (%s) loaded successfully\n", textureFile);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+        unsigned int glColModel = hasAlpha ? GL_RGBA : GL_RGB;
+        if (hasAlpha)
+        {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        }
+        glTexImage2D(GL_TEXTURE_2D, 0, glColModel, width, height, 0, glColModel, GL_UNSIGNED_BYTE, imageData);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else

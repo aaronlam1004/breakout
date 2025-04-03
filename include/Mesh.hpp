@@ -19,9 +19,8 @@ class Mesh
     public:
         Mesh();
         void load(const float vertices[], const unsigned int sizeOfVertices, const VertexAttributes attributes);
-        void loadTexture(const char* textureFile, bool flipped = false);
+        void loadTexture(const char* textureFile, bool flipped = false, bool hasAlpha = true);
         void draw(void);
-    
 
         unsigned int getTextureID(void);
 

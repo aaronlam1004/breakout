@@ -5,7 +5,7 @@ Sprite::Sprite() : Entity()
 {
 }
 
-void Sprite::loadSprite(const char* spriteTextureFile, bool textureFlipped)
+void Sprite::loadSprite(const char* spriteTextureFile, bool textureFlipped, bool textureHasAlpha)
 {
     Entity::load(SPRITE_ENTITY_DATA);
 
@@ -13,7 +13,7 @@ void Sprite::loadSprite(const char* spriteTextureFile, bool textureFlipped)
     shader.use();
 
     // Texture
-    mesh.loadTexture(spriteTextureFile, textureFlipped);
+    mesh.loadTexture(spriteTextureFile, textureFlipped, textureHasAlpha);
     shader.setInt("image", 0);
 
     // Projection Matrix
@@ -25,15 +25,22 @@ void Sprite::loadSprite(const char* spriteTextureFile, bool textureFlipped)
     shader.setMat4f("view", view);
 }
 
+void Sprite::draw(void)
+{
+    shader.use();
+    
+    // Model Matrix
+    glm::mat4 model = glm::mat4(1);
+    model = glm::translate(model, glm::vec3(pos.x, pos.y, 1.0f));
+    model = glm::scale(model, glm::vec3(size.width, size.height, 1.0f));
+    shader.setMat4f("model", model);
+
+    Entity::draw();
+}
+
 
 void Sprite::update(void)
 {
-    glm::mat4 model = glm::mat4(1);
-
-    model = glm::translate(model, glm::vec3(pos.x, pos.y, 1.0f));
-    // model = glm::translate(model, glm::vec3(size.width / 2, size.height / 2, 1.0f));
-    model = glm::scale(model, glm::vec3(size.width, size.height, 1.0f));
-
     if (pos.x <= 0)
     {
         vel.x = 0.1f;
@@ -44,5 +51,4 @@ void Sprite::update(void)
     }
     
     pos.x += vel.x;
-    shader.setMat4f("model", model);
 }
