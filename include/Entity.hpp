@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 
 #include <Logger.hpp>
 #include <Mesh.hpp>
@@ -25,38 +26,57 @@ struct Velocity
     float y;
 };
 
-struct EntityData
+struct Color
 {
-    // Shaders
-    const char* vsFile;
-    const char* fsFile;
+    float r;
+    float g;
+    float b;
 
-    // Mesh
-    const float* vertices;
-    const unsigned int sizeOfVertices;
-    const VertexAttributes attributes;
+    glm::vec3 toVec(void)
+    {
+        return glm::vec3(r, g, b);
+    }
 };
 
-class Entity
+struct MeshData
 {
-    public:
-        Entity();
-        void load(EntityData data);
-        virtual void draw(void);
-        virtual void update(void) {}
+    float* vertices;
+    unsigned int sizeOfVertices;
+    VertexAttributes attributes;
+};
 
-        // TODO: make getters/setters
-        Pos pos {0.0f, 0.0f};
-        Size size {50.0f, 50.0f};
-        Velocity vel {0.0f, 0.0f};
+struct Entity
+{
+    Pos pos {0.0f, 0.0f};
+    Size size {50.0f, 50.0f};
+    Velocity vel {0.0f, 0.0f};
+    Color color {1.0f, 1.0f, 1.0f};
+    Shader shader;
+    Mesh mesh;
 
-    protected:
-        Shader shader;
-        Mesh mesh;
+    void (*updateEntity)(Entity* entity) = nullptr;
 
-        /*
-        Pos pos {0.0f, 0.0f};
-        Size size {50.0f, 50.0f};
-        Velocity vel {0.0f, 0.0f};
-        */
+    virtual void loadShader(const char* vsFile, const char* fsFile)
+    {
+        shader.load(vsFile, fsFile);
+    }
+
+    virtual void loadMesh(MeshData meshData)
+    {
+        mesh.load(meshData.vertices, meshData.sizeOfVertices, meshData.attributes);
+    }
+
+    virtual void render(void)
+    {
+        shader.use();
+        mesh.render();
+    }
+
+    void update(void)
+    {
+        if (updateEntity != nullptr)
+        {
+            updateEntity(this);
+        }
+    }
 };

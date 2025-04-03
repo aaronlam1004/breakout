@@ -7,9 +7,7 @@
 #include <cstdlib>
 #include <vector>
 
-#include <glm/glm.hpp> // TODO: move below to another file
-
-#include <Sprite.hpp> // TODO: move below to another file
+#include <Logger.hpp>
 
 class Level
 {
@@ -22,11 +20,9 @@ class Level
             std::stringstream levelFileStream;
             levelFileStream << levelFile.rdbuf();
             levelFile.close();
-
-            std::string levelString = levelFileStream.str();
-            std::cout << levelString << std::endl;
-
-            parseLevel(levelString);
+            
+            levelName = levelFileName;
+            parseLevel(levelFileStream.str());
         }
 
         void parseLevel(std::string levelString)
@@ -35,8 +31,7 @@ class Level
             columns = 0;
 
             int numValues = 0;
-
-            std::vector<int> values;
+            std::vector<unsigned int> values;
             for (int i = 0; i < levelString.length(); ++i)
             {
                 if (levelString[i] != ' ' && levelString[i] != '\n')
@@ -59,9 +54,6 @@ class Level
                 }
             }
             
-            std::cout << "Read columns: " << columns << std::endl;
-            std::cout << "Read rows: " << rows << std::endl;
-
             for (int i = 0; i < rows; ++i)
             {
                 std::vector<unsigned int> level;
@@ -70,15 +62,6 @@ class Level
                     level.push_back(values[(i * columns) + j]);
                 }
                 levelData.push_back(level);
-            }
-
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int j = 0; j < columns; ++j)
-                {
-                    std::cout << levelData[i][j] << ' ';
-                }
-                std::cout << std::endl;
             }
         }
 
@@ -96,49 +79,15 @@ class Level
         {
             return columns;
         }
+
+        const char* getName(void)
+        {
+            return levelName;
+        }
     
     private:
         unsigned int rows = 0;
         unsigned int columns = 0;
         std::vector<std::vector<unsigned int>> levelData;
-};
-
-// TODO: move to another file
-class LevelRenderer
-{
-    public:
-        LevelRenderer() {};
-
-        void load(Level level)
-        {
-            std::cout << "LOADING LEVEL" << std::endl;
-            std::vector<std::vector<unsigned int>> levelData = level.getLevel();
-            
-            for (int i = 0; i < level.numRows(); ++i)
-            {
-                for (int j = 0; j < level.numColumns(); ++j)
-                {
-                    if (levelData[i][j] != 0)
-                    {
-                        Sprite block;
-                        block.size.width = 800 / level.numColumns();
-                        block.pos.x += j * (block.size.width);
-                        block.pos.y += i * (block.size.height);
-                        block.loadSprite("resources/textures/block.png", false, false);
-                        blocks.push_back(block);
-                    }
-                }
-            }
-        }
-
-        void draw(void)
-        {
-            for (int i = 0; i < blocks.size(); ++i)
-            {
-                blocks[i].draw();
-            }
-        }
-
-    private:
-        std::vector<Sprite> blocks;
+        const char* levelName;
 };

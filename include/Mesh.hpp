@@ -20,7 +20,7 @@ class Mesh
         Mesh();
         void load(const float vertices[], const unsigned int sizeOfVertices, const VertexAttributes attributes);
         void loadTexture(const char* textureFile, bool flipped = false, bool hasAlpha = true);
-        void draw(void);
+        void render(void);
 
         unsigned int getTextureID(void);
 

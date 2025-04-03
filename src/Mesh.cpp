@@ -30,7 +30,7 @@ void Mesh::loadTexture(const char* textureFile, bool flipped, bool hasAlpha)
     unsigned char* imageData = stbi_load(textureFile, &width, &height,&numChannels, 0);
     if (imageData)
     {
-        LOG_INFO("Texture (%s) loaded successfully\n", textureFile);
+        LOG_DEBUG("Texture (%s) loaded successfully\n", textureFile);
         unsigned int glColModel = hasAlpha ? GL_RGBA : GL_RGB;
         if (hasAlpha)
         {
@@ -84,7 +84,7 @@ void Mesh::loadAttributes(const VertexAttributes attributes)
     }
 }
 
-void Mesh::draw(void)
+void Mesh::render(void)
 {
     if (vboID != -1 || vaoID != -1)
     {

@@ -39,13 +39,14 @@ bool Shader::loadVertexShader(const char* vsFile)
     
     std::string vertexShaderString = vertexShaderStream.str();
     const char* vertexShaderSource = vertexShaderString.c_str();
+    
     glShaderSource(vertexShaderID, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShaderID);
 
     bool compiled = checkShaderCompiled(vertexShaderID);
     if (compiled)
     {
-        LOG_INFO("Vertex shader (%s) compiled successfully\n", vsFile); 
+        LOG_DEBUG("Vertex shader (%s) compiled successfully\n", vsFile); 
         glAttachShader(id, vertexShaderID);
     }
     else
@@ -65,13 +66,14 @@ bool Shader::loadFragmentShader(const char* fsFile)
     
     std::string fragmentShaderString = fragmentShaderStream.str();
     const char* fragmentShaderSource = fragmentShaderString.c_str();
+
     glShaderSource(fragmentShaderID, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShaderID);
 
     bool compiled = checkShaderCompiled(fragmentShaderID);
     if (compiled)
     {
-        LOG_INFO("Fragment shader (%s) compiled successfully\n", fsFile); 
+        LOG_DEBUG("Fragment shader (%s) compiled successfully\n", fsFile); 
         glAttachShader(id, fragmentShaderID);
     }
     else
@@ -108,6 +110,11 @@ int Shader::findVar(const char* var)
 void Shader::setInt(const char* var, int value)
 {
     glUniform1i(findVar(var), value);
+}
+
+void Shader::setVec3f(const char* var, glm::vec3 vec)
+{
+    glUniform3fv(findVar(var), 1, glm::value_ptr(vec));
 }
 
 void Shader::setMat4f(const char* var, glm::mat4 mat, bool transpose)

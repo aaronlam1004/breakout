@@ -20,6 +20,7 @@ class Shader
 
         // Set shader variables
         void setInt(const char* var, int value);
+        void setVec3f(const char* var, glm::vec3 vec);
         void setMat4f(const char* var, glm::mat4 mat, bool transpose = false);
 
     private:

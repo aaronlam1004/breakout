@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <Scene.hpp>
 #include <Level.hpp>
 #include <Logger.hpp>
 #include <Shader.hpp>
@@ -14,10 +15,6 @@ const int HEIGHT = 800;
 
 int main(int argc, char* argv[])
 {
-    LevelRenderer levelRenderer;
-    Level level;
-    level.readLevel("levels/level1.txt");
-
     // GLFW window
     if (!glfwInit())
     {
@@ -40,21 +37,22 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    Level level;
+    level.readLevel("levels/level1.txt");
+
+    // Renderer
+    Scene scene;
+    scene.setBackgroundColor(0.0f, 0.0f, 0.0f);
+    scene.loadLevel(level);
 
     // Event handlers
-
-    // Entities
     loadEntities();
-    levelRenderer.load(level);
 
     // Loop
     while (!glfwWindowShouldClose(window))
     {
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        levelRenderer.draw();
-        sprite.draw();
+        scene.render();
+        sprite.render();
         sprite.update();
         
         glfwSwapBuffers(window);
