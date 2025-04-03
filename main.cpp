@@ -48,6 +48,7 @@ int main(int argc, char* argv[])
         glClear(GL_COLOR_BUFFER_BIT);
         
         sprite.draw();
+        sprite.update();
         
         glfwSwapBuffers(window);
         glfwPollEvents();

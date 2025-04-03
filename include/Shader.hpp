@@ -7,7 +7,7 @@
 #include <sstream>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-// #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <Logger.hpp>
 
@@ -20,6 +20,7 @@ class Shader
 
         // Set shader variables
         void setInt(const char* var, int value);
+        void setMat4f(const char* var, glm::mat4 mat, bool transpose = false);
 
     private:
         int id = -1;

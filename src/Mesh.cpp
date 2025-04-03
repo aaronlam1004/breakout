@@ -14,7 +14,7 @@ void Mesh::load(const float vertices[], const unsigned int sizeOfVertices, const
     numOfTriangles = (sizeOfVertices / sizeof(float)) / attributes.totalCount;
 }
 
-void Mesh::loadTexture(const char* textureFile)
+void Mesh::loadTexture(const char* textureFile, bool flipped)
 {
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
@@ -25,6 +25,7 @@ void Mesh::loadTexture(const char* textureFile)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    stbi_set_flip_vertically_on_load(flipped);
     int width, height, numChannels;
     unsigned char* imageData = stbi_load(textureFile, &width, &height,&numChannels, 0);
     if (imageData)

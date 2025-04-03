@@ -86,15 +86,31 @@ bool Shader::checkShaderCompiled(int shaderID)
 {
     int status;
     glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &status);
+    if (status == 0)
+    {
+        char infoLog[512] = {0};
+        glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
+        LOG_ERROR("Shader compilation error:\n%s", infoLog);
+    }
     return status != 0;
 }
 
 int Shader::findVar(const char* var)
 {
-    return glGetUniformLocation(id, var);
+    int location = glGetUniformLocation(id, var);
+    if (location == GL_INVALID_VALUE || location == GL_INVALID_OPERATION)
+    {
+        LOG_ERROR("Could not find %s in shader (status %d)", var, location);
+    }
+    return location;
 }
 
 void Shader::setInt(const char* var, int value)
 {
     glUniform1i(findVar(var), value);
+}
+
+void Shader::setMat4f(const char* var, glm::mat4 mat, bool transpose)
+{
+    glUniformMatrix4fv(findVar(var), 1, transpose ? GL_TRUE : GL_FALSE, glm::value_ptr(mat));
 }

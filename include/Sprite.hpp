@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include <Mesh.hpp>
 #include <Entity.hpp>
 
@@ -34,5 +36,6 @@ class Sprite: public Entity
 {
     public:
         Sprite();
-        void loadSprite(const char* spriteTextureFile);
+        void loadSprite(const char* spriteTextureFile, bool textureFlipped = false);
+        void update(void) override;
 };
