@@ -10,5 +10,5 @@ Sprite sprite;
 void loadEntities(void)
 {
     sprite.load("resources/textures/awesomeface.png");
-    sprite.updateEntity = moveHorizontally;
+    // sprite.updateEntity = moveHorizontally;
 }

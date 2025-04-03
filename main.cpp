@@ -6,6 +6,7 @@
 #include <Level.hpp>
 #include <Logger.hpp>
 #include <Shader.hpp>
+#include <Inputs.hpp>
 #include <ResourceLib.hpp>
 
 Logger logger;
@@ -36,6 +37,9 @@ int main(int argc, char* argv[])
         printf("Failed to initialize GLAD for OpenGL\n");
         return -1;
     }
+
+    // User inputs
+    glfwSetKeyCallback(window, processKeyPress);
 
     Level level;
     level.readLevel("levels/level1.txt");
