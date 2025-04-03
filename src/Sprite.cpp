@@ -4,7 +4,9 @@ Sprite::Sprite() : Entity()
 {
 }
 
-void Sprite::loadSprite(Shader& spriteShader)
+void Sprite::loadSprite(const char* spriteTextureFile)
 {
-    load(spriteShader, SPRITE_VERTICES, sizeof(SPRITE_VERTICES), SPRITE_ATTRIBUTES);
+    Entity::load(SPRITE_ENTITY_DATA);
+    mesh.loadTexture(spriteTextureFile);
+    shader.setInt("image", 0);
 }

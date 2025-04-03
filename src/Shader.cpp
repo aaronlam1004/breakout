@@ -12,7 +12,7 @@ void Shader::use(void)
     }
     else
     {
-        LOG_WARNING("No shader loaded, nothing will show\n");
+        LOG_WARNING("Shader not loaded\n");
     }
 }
 
@@ -87,4 +87,14 @@ bool Shader::checkShaderCompiled(int shaderID)
     int status;
     glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &status);
     return status != 0;
+}
+
+int Shader::findVar(const char* var)
+{
+    return glGetUniformLocation(id, var);
+}
+
+void Shader::setInt(const char* var, int value)
+{
+    glUniform1i(findVar(var), value);
 }

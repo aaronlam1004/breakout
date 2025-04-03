@@ -3,7 +3,6 @@
 #include <GLFW/glfw3.h>
 
 #include <Logger.hpp>
-#include <Triangle.hpp>
 #include <Shader.hpp>
 #include <ResourceLib.hpp>
 
@@ -40,8 +39,7 @@ int main(int argc, char* argv[])
 
     // Event handlers
 
-    // Entities and shaders
-    loadShaders();
+    // Entities
     loadEntities();
 
     // Loop
@@ -49,8 +47,7 @@ int main(int argc, char* argv[])
     {
         glClear(GL_COLOR_BUFFER_BIT);
         
-        triangle.show();
-        sprite.show();
+        sprite.draw();
         
         glfwSwapBuffers(window);
         glfwPollEvents();

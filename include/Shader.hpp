@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <glad/glad.h>
-// #include <glm/glm.hpp>
+#include <glm/glm.hpp>
 // #include <glm/gtc/type_ptr.hpp>
 
 #include <Logger.hpp>
@@ -18,6 +18,9 @@ class Shader
         void load(const char* vsFile, const char* fsFile);
         void use(void);
 
+        // Set shader variables
+        void setInt(const char* var, int value);
+
     private:
         int id = -1;
         int vertexShaderID = -1;
@@ -26,4 +29,6 @@ class Shader
         bool loadVertexShader(const char* vsFile);
         bool loadFragmentShader(const char* fsFile);
         bool checkShaderCompiled(int shaderID);
+
+        int findVar(const char* var);
 };
