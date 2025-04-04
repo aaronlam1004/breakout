@@ -16,11 +16,11 @@ void processKeyPress(GLFWwindow* window, int key, int scanCode, int action, int 
             } break;
             case GLFW_KEY_RIGHT:
             {
-                sprite.pos.x += sprite.size.width / 2;
+                sprite.pos.x += 20.0f;
             } break;
             case GLFW_KEY_LEFT:
             {
-                sprite.pos.x -= sprite.size.width / 2;
+                sprite.pos.x -= 20.0f;
             } break;
         }
     }

@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <Constants.hpp>
 #include <Scene.hpp>
 #include <Level.hpp>
 #include <Logger.hpp>
@@ -10,9 +11,6 @@
 #include <ResourceLib.hpp>
 
 Logger logger;
-
-const int WIDTH = 800;
-const int HEIGHT = 800;
 
 int main(int argc, char* argv[])
 {
@@ -44,7 +42,7 @@ int main(int argc, char* argv[])
     Level level;
     level.readLevel("levels/level1.txt");
 
-    // Renderer
+    // Scene
     Scene scene;
     scene.setBackgroundColor(0.0f, 0.0f, 0.0f);
     scene.loadLevel(level);

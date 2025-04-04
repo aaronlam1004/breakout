@@ -9,6 +9,7 @@ Sprite sprite;
 
 void loadEntities(void)
 {
-    sprite.load("resources/textures/awesomeface.png");
+    sprite.size.width = 200;
+    sprite.load("resources/textures/paddle.png");
     // sprite.updateEntity = moveHorizontally;
 }

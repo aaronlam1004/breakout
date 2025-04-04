@@ -29,9 +29,11 @@ class Level
         {
             rows = 0;
             columns = 0;
-
+            levelData.clear();
+            
             int numValues = 0;
             std::vector<unsigned int> values;
+            
             for (int i = 0; i < levelString.length(); ++i)
             {
                 if (levelString[i] != ' ' && levelString[i] != '\n')
@@ -41,15 +43,19 @@ class Level
                     {
                         columns++;
                     }
+                    numValues++;
                 }
                 
                 if (levelString[i] == '\n')
                 {
-                    rows++;
                     if (rows > 0 && columns != numValues)
                     {
-                        // TODO: throw error here regarding parsing level
+                        LOG_ERROR("Invalid level (row: %d), mismatch num of columns (expected: %d, actual: %d)\n", rows, columns, numValues);
+                        rows = 0;
+                        columns = 0;
+                        return;
                     }
+                    rows++;
                     numValues = 0;
                 }
             }
