@@ -36,6 +36,11 @@ class Logger
         void logPrefix(int level);
 };
 
+static inline void SET_LEVEL(int level)
+{
+    Logger::instance()->setLevel(level);
+}
+
 static inline void LOG_ERROR(const char* message, ...)
 {
     va_list args;

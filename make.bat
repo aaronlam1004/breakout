@@ -5,6 +5,7 @@ set SOURCES=../main.cpp
 set SOURCES=%SOURCES% ../src/Logger.cpp
 set SOURCES=%SOURCES% ../src/Shader.cpp
 set SOURCES=%SOURCES% ../src/Mesh.cpp
+set SOURCES=%SOURCES% ../src/Level.cpp
 set SOURCES=%SOURCES% ../src/Scene.cpp
 
 rem SOURCES (3rd party)

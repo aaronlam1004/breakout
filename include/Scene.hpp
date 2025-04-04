@@ -17,4 +17,6 @@ class Scene
 
     private:
         std::vector<Sprite> levelEntities;
+    
+        void setBlockColor(Sprite& block, int blockType);
 };

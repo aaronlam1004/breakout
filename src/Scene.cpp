@@ -18,17 +18,52 @@ void Scene::loadLevel(Level level)
     {
         for (int j = 0; j < levelData[i].size(); ++j)
         {
-            if (levelData[i][j] != 0)
+            int blockType = levelData[i][j];
+            if (blockType != BlockTypes::EMPTY)
             {
                 Sprite block;
                 block.size = { 800.0f / level.numColumns(), 50.0f };
                 block.pos = { j * (block.size.width), i * (block.size.height) };
-                block.color = { 1.0f, 1.0f, 0.0f };
-                block.load("resources/textures/block.png", false, false);
 
+                switch (blockType)
+                {
+                    case BlockTypes::SOLID:
+                    {
+                        block.color = { 1.0f, 1.0f, 1.0f };
+                        block.load("resources/textures/block_solid.png", false, false);
+                    } break;
+                    default:
+                    {
+                        setBlockColor(block, blockType);
+                        block.load("resources/textures/block.png", false, false);
+                    } break;
+                }
                 levelEntities.push_back(block);
             }
         }
+    }
+}
+
+void Scene::setBlockColor(Sprite& block, int blockType)
+{
+    switch (blockType)
+    {
+        case BlockColors::BLUE:
+        {
+            block.color = { 0.0f, 0.5f, 1.0f };
+        } break;
+        case BlockColors::GREEN:
+        {
+            block.color = { 0.0f, 1.0f, 0.5f };
+        } break;
+        case BlockColors::RED:
+        {
+            block.color = { 1.0f, 0.0f, 0.5f };
+        } break;
+        default:
+        {
+            block.color = { 1.0f, 1.0f, 1.0f };
+        } break;
     }
 }
 
