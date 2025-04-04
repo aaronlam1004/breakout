@@ -3,6 +3,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+#include <Constants.hpp>
 #include <Mesh.hpp>
 #include <Entity.hpp>
 
@@ -49,7 +50,7 @@ struct Sprite : public Entity
         shader.setVec3f("spriteColor", color.toVec());
 
         // Projection Matrix
-        glm::mat4 projection = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
+        glm::mat4 projection = glm::ortho(0.0f, WIDTH, HEIGHT, 0.0f, -1.0f, 1.0f);
         shader.setMat4f("projection", projection);
 
         // View Matrix
@@ -77,16 +78,3 @@ struct Sprite : public Entity
         Entity::render();
     }
 };
-
-static void moveHorizontally(Entity* entity)
-{
-    if (entity->pos.x <= 0)
-    {
-        entity->vel.x = 0.1f;
-    }
-    else if (entity->pos.x >= 800.0f - entity->size.width)
-    {
-        entity->vel.x = -0.1f;
-    }
-    entity->pos.x += entity->vel.x;
-}

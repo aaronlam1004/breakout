@@ -3,6 +3,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+#include <Constants.hpp>
 #include <Level.hpp>
 #include <Entity.hpp>
 #include <Sprite.hpp>

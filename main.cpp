@@ -55,8 +55,7 @@ int main(int argc, char* argv[])
     while (!glfwWindowShouldClose(window))
     {
         scene.render();
-        sprite.render();
-        sprite.update();
+        renderEntities();
         
         glfwSwapBuffers(window);
         glfwPollEvents();

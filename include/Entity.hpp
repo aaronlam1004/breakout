@@ -47,6 +47,7 @@ struct MeshData
 
 struct Entity
 {
+    int type     { -1 };
     Size size    { 0.0f, 0.0f };
     Pos pos      { 0.0f, 0.0f };
     Velocity vel { 0.0f, 0.0f };
@@ -55,7 +56,7 @@ struct Entity
     Shader shader;
     Mesh mesh;
 
-    void (*updateEntity)(Entity* entity) = nullptr;
+    void (*updateEntity)(Entity* self) = nullptr;
 
     virtual void loadShader(const char* vsFile, const char* fsFile)
     {
@@ -73,7 +74,7 @@ struct Entity
         mesh.render();
     }
 
-    void update(void)
+    virtual void update(void)
     {
         if (updateEntity != nullptr)
         {

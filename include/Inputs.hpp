@@ -26,11 +26,23 @@ void processKeyPress(GLFWwindow* window, int key, int scanCode, int action, int 
             } break;
             case GLFW_KEY_RIGHT:
             {
-                sprite.pos.x += 20.0f;
+                float playerDelta = player.move(20.0f);
+                if (ball.stuck)
+                {
+                    ball.pos.x += playerDelta;
+                }
             } break;
             case GLFW_KEY_LEFT:
             {
-                sprite.pos.x -= 20.0f;
+                float playerDelta = player.move(-20.0f);
+                if (ball.stuck)
+                {
+                    ball.pos.x += playerDelta;
+                }
+            } break;
+            case GLFW_KEY_SPACE:
+            {
+                ball.release();
             } break;
             case GLFW_KEY_TAB:
             {

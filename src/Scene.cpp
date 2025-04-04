@@ -22,7 +22,7 @@ void Scene::loadLevel(Level level)
             if (blockType != BlockTypes::EMPTY)
             {
                 Sprite block;
-                block.size = { 800.0f / level.numColumns(), 50.0f };
+                block.size = { WIDTH / level.numColumns(), 50.0f };
                 block.pos = { j * (block.size.width), i * (block.size.height) };
 
                 switch (blockType)
