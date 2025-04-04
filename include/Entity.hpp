@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <vector>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -40,8 +41,7 @@ struct Color
 
 struct MeshData
 {
-    float* vertices;
-    unsigned int sizeOfVertices;
+    std::vector<float> vertices;
     VertexAttributes attributes;
 };
 
@@ -64,7 +64,7 @@ struct Entity
 
     virtual void loadMesh(MeshData meshData)
     {
-        mesh.load(meshData.vertices, meshData.sizeOfVertices, meshData.attributes);
+        mesh.load(meshData.vertices, meshData.attributes);
     }
 
     virtual void render(void)

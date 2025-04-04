@@ -1,11 +1,12 @@
 #pragma once
 
+#include <vector>
 #include <glm/glm.hpp>
 
 #include <Mesh.hpp>
 #include <Entity.hpp>
 
-const float SPRITE_VERTICES[] = {
+const std::vector<float> SPRITE_VERTICES = {
     // aPos (xy) // aTexCoord(xy)
     0.0f, 1.0f,  0.0f, 1.0f,
     1.0f, 0.0f,  1.0f, 0.0f,
@@ -25,8 +26,7 @@ const VertexAttributes SPRITE_ATTRIBUTES = {
 };
 
 const MeshData SPRITE_MESH_DATA = {
-    (float*) SPRITE_VERTICES,
-    sizeof(SPRITE_VERTICES),
+    SPRITE_VERTICES,
     SPRITE_ATTRIBUTES
 };
 

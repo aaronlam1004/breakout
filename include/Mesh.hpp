@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <vector>
 #include <glad/glad.h>
 #include <stb_image.h>
 
@@ -18,7 +19,7 @@ class Mesh
 {
     public:
         Mesh();
-        void load(const float vertices[], const unsigned int sizeOfVertices, const VertexAttributes attributes);
+        void load(const std::vector<float> vertices, const VertexAttributes attributes);
         void loadTexture(const char* textureFile, bool flipped = false, bool hasAlpha = true);
         void render(void);
 
@@ -29,11 +30,11 @@ class Mesh
         unsigned int vaoID = -1;
         unsigned int textureID = -1;
 
-        // TODO: handle array of textures
+        // TODO: handle vector of textures
 
         unsigned int numOfTriangles = 0;
 
         void initBuffers(void);
-        void loadVertices(const float vertices[], const unsigned int sizeOfVertices);
+        void loadVertices(const std::vector<float>);
         void loadAttributes(const VertexAttributes attributes);
 };

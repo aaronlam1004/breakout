@@ -5,13 +5,12 @@ Mesh::Mesh()
 {
 }
 
-void Mesh::load(const float vertices[], const unsigned int sizeOfVertices, const VertexAttributes attributes)
+void Mesh::load(std::vector<float> vertices, const VertexAttributes attributes)
 {
-    assert(sizeOfVertices > 0);
     initBuffers();
-    loadVertices(vertices, sizeOfVertices);
+    loadVertices(vertices);
     loadAttributes(attributes);
-    numOfTriangles = (sizeOfVertices / sizeof(float)) / attributes.totalCount;
+    numOfTriangles = vertices.size() / attributes.totalCount;
 }
 
 void Mesh::loadTexture(const char* textureFile, bool flipped, bool hasAlpha)
@@ -62,10 +61,10 @@ void Mesh::initBuffers(void)
     }
 }
 
-void Mesh::loadVertices(const float vertices[], const unsigned int sizeOfVertices)
+void Mesh::loadVertices(std::vector<float> vertices)
 {
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeOfVertices, vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
 }
 
 void Mesh::loadAttributes(const VertexAttributes attributes)
