@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
     }
 
     // User inputs
+    glfwSetFramebufferSizeCallback(window, processFramebufferResize);
     glfwSetKeyCallback(window, processKeyPress);
 
     Level level;
@@ -44,7 +45,7 @@ int main(int argc, char* argv[])
 
     // Scene
     Scene scene;
-    scene.setBackgroundColor(0.0f, 0.0f, 0.0f);
+    scene.setBackgroundColor(0.2f, 0.2f, 0.2f);
     scene.loadLevel(level);
 
     // Event handlers

@@ -8,16 +8,16 @@
 #include <Mesh.hpp>
 #include <Shader.hpp>
 
-struct Pos
-{
-    float x;
-    float y;
-};
-
 struct Size
 {
     float width;
     float height;
+};
+
+struct Pos
+{
+    float x;
+    float y;
 };
 
 struct Velocity
@@ -47,10 +47,11 @@ struct MeshData
 
 struct Entity
 {
-    Pos pos {0.0f, 0.0f};
-    Size size {50.0f, 50.0f};
-    Velocity vel {0.0f, 0.0f};
-    Color color {1.0f, 1.0f, 1.0f};
+    Size size    { 0.0f, 0.0f };
+    Pos pos      { 0.0f, 0.0f };
+    Velocity vel { 0.0f, 0.0f };
+    Color color  { 1.0f, 1.0f, 1.0f };
+    
     Shader shader;
     Mesh mesh;
 

@@ -4,6 +4,11 @@
 
 #include <ResourceLib.hpp>
 
+void processFramebufferResize(GLFWwindow* window, int width, int height)
+{
+    glViewPort(0, 0, width, height);
+}
+
 void processKeyPress(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
     if (action == GLFW_PRESS || action == GLFW_REPEAT)

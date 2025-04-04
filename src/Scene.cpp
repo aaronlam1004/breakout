@@ -21,15 +21,9 @@ void Scene::loadLevel(Level level)
             if (levelData[i][j] != 0)
             {
                 Sprite block;
-                
-                block.size.width = 800 / level.numColumns();
-                block.pos.x += j * (block.size.width);
-                block.pos.y += i * (block.size.height);
-
-                block.color.r = 1.0f;
-                block.color.g = 1.0f;
-                block.color.b = 0.0f;
-
+                block.size = { 800.0f / level.numColumns(), 50.0f };
+                block.pos = { j * (block.size.width), i * (block.size.height) };
+                block.color = { 1.0f, 1.0f, 0.0f };
                 block.load("resources/textures/block.png", false, false);
 
                 levelEntities.push_back(block);
