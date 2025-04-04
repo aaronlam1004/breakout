@@ -14,8 +14,14 @@ set SOURCES=%SOURCES% ../3rdparty/glad/glad.c
 rem LIBS
 set LIBS=opengl32.lib ../3rdparty/GLFW/lib/glfw3dll.lib
 
+rem DEFINES
+set DEFINES=
+if "%1%"=="--debug" (
+    set DEFINES=%DEFINES% /DDEBUG_LOGS
+)
+
 mkdir build
 pushd build
-cl -Zi /EHsc %SOURCES% /I ../3rdparty /I ../include/ /link %LIBS%
+cl -Zi %DEFINES% /EHsc %SOURCES% /I ../3rdparty /I ../include/ /link %LIBS%
 xcopy ..\3rdparty\GLFW\lib\glfw3.dll . /d
 popd build

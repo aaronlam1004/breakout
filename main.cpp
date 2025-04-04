@@ -14,6 +14,10 @@ Logger logger;
 
 int main(int argc, char* argv[])
 {
+    #ifdef DEBUG_LOGS
+    logger.setLevel(LogLevel::DEBUG);
+    #endif
+    
     // GLFW window
     if (!glfwInit())
     {

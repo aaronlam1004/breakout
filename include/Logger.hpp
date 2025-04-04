@@ -32,7 +32,7 @@ class Logger
     private:
         static Logger* self;
         int logLevel = LogLevel::INFO;
-
+    
         void logPrefix(int level);
 };
 
