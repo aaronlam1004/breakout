@@ -1,12 +1,17 @@
 #pragma once
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
+#include <Logger.hpp>
 #include <ResourceLib.hpp>
+
+bool polygonMode = false;
 
 void processFramebufferResize(GLFWwindow* window, int width, int height)
 {
-    glViewPort(0, 0, width, height);
+    glViewport(0, 0, width, height);
 }
 
 void processKeyPress(GLFWwindow* window, int key, int scanCode, int action, int mods)
@@ -26,6 +31,18 @@ void processKeyPress(GLFWwindow* window, int key, int scanCode, int action, int 
             case GLFW_KEY_LEFT:
             {
                 sprite.pos.x -= 20.0f;
+            } break;
+            case GLFW_KEY_TAB:
+            {
+                polygonMode = !polygonMode;
+                if (polygonMode)
+                {
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                }
+                else
+                {
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                }
             } break;
         }
     }

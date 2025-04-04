@@ -3,9 +3,9 @@
 #include <GLFW/glfw3.h>
 
 #include <Constants.hpp>
+#include <Logger.hpp>
 #include <Scene.hpp>
 #include <Level.hpp>
-#include <Logger.hpp>
 #include <Shader.hpp>
 #include <Inputs.hpp>
 #include <ResourceLib.hpp>
@@ -17,14 +17,14 @@ int main(int argc, char* argv[])
     // GLFW window
     if (!glfwInit())
     {
-        printf("Failed to initialize GLFW\n");
+        LOG_ERROR("Failed to initialize GLFW\n");
         return -1;
     }
 
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Window", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Breakout", NULL, NULL);
     if (window == NULL)
     {
-        printf("Failed to create GLFW window\n");
+        LOG_ERROR("Failed to create GLFW window\n");
         return -1;
     }
     
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
-        printf("Failed to initialize GLAD for OpenGL\n");
+        LOG_ERROR("Failed to initialize GLAD for OpenGL\n");
         return -1;
     }
 
